@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+    </style>
+</head>
+<body>
+    <script>
+
+    fetch('/contacts')
+        .then(response => response.json())
+        .then(data => {
+
+            const tableBody =
+                document.getElementById("contactTableBody");
+
+            data.forEach(contact => {
+
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${contact.id}</td>
+                        <td>${contact.name}</td>
+                        <td>${contact.email}</td>
+                        <td>${contact.message}</td>
+                    </tr>
+                `;
+
+            });
+
+        });
+
+    </script>
+    <h1>All Contacts</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+
+        <tbody id="contactTableBody">
+
+        </tbody>
+    </table>
+
+</body>
+</html>
