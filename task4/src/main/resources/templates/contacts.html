@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.logout-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.logout-btn:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <script>
+
+    fetch('/contacts')
+        .then(response => response.json())
+        .then(data => {
+
+            const tableBody =
+                document.getElementById("contactTableBody");
+
+            data.forEach(contact => {
+
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${contact.id}</td>
+                        <td>${contact.name}</td>
+                        <td>${contact.email}</td>
+                        <td>${contact.message}</td>
+                    </tr>
+                `;
+
+            });
+
+        });
+
+    </script>
+<div class="top-bar">
+
+    <h1>All Contacts</h1>
+
+    <form action="/logout" method="post">
+        <button class="logout-btn">
+            Logout
+        </button>
+    </form>
+
+</div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+
+        <tbody id="contactTableBody">
+
+        </tbody>
+    </table>
+
+</body>
+</html>
